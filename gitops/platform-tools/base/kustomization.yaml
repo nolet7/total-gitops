@@ -1,4 +1,6 @@
 resources:
+  - mysql-app-dev.yaml
+  - mysql-app-prod.yaml
   - argocd-app-dev.yaml
   - argocd-app-prod.yaml
   - external-secrets-app-dev.yaml
@@ -30,5 +32,6 @@ resources:
   - kyverno-policies/verify-cosign-images.yaml
   - ../stores/clustersecretstore-vault.yaml
   - ../stores/externalsecrets/linkerd-issuer.yaml
+  - ../stores/externalsecrets/mysql-auth.yaml
   - ../stores/externalsecrets/srespace-env.yaml
 

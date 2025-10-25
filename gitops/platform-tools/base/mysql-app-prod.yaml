@@ -1,0 +1,17 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata: { name: mysql-prod, namespace: argocd }
+spec:
+  project: platform-tools
+  sources:
+    - repoURL: https://charts.bitnami.com/bitnami
+      chart: mysql
+      targetRevision: 12.1.9
+      helm:
+        valueFiles:
+          - $values/gitops/platform-tools/values/prod/mysql.yaml
+    - repoURL: https://github.com/nolet7/total-gitops.git
+      targetRevision: master
+      ref: values
+  destination: { server: https://kubernetes.default.svc, namespace: apps }
+  syncPolicy: { automated: { selfHeal: true, prune: true } }

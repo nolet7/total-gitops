@@ -1,0 +1,11 @@
+architecture: standalone
+primary:
+  persistence:
+    enabled: true
+    size: 8Gi
+auth:
+  database: srespace_shop
+  username: appuser
+  existingSecret: mysql-auth        # secret created by ESO
+  # keys expected in mysql-auth: mysql-root-password, mysql-password
+fullnameOverride: srespace-mysql

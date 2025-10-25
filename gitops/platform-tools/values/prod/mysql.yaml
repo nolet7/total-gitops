@@ -1,0 +1,13 @@
+architecture: standalone
+primary:
+  persistence:
+    enabled: true
+    size: 50Gi
+  resources:
+    requests: { cpu: 500m, memory: 1Gi }
+    limits:   { cpu: "2", memory: 4Gi }
+auth:
+  database: srespace_shop
+  username: appuser
+  existingSecret: mysql-auth
+fullnameOverride: srespace-mysql

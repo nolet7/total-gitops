@@ -1,0 +1,17 @@
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
+metadata:
+  name: mysql-auth
+  namespace: apps
+spec:
+  refreshInterval: 15m
+  secretStoreRef: { name: vault, kind: ClusterSecretStore }
+  target:
+    name: mysql-auth
+    creationPolicy: Owner
+  data:
+    # Bitnami MySQL expects these keys in the secret if using auth.existingSecret
+    - secretKey: mysql-root-password
+      remoteRef: { key: secret/Dev-secret/srespace-db, property: MYSQL_ROOT_PASSWORD }
+    - secretKey: mysql-password
+      remoteRef: { key: secret/Dev-secret/srespace-db, property: MYSQL_PASSWORD }
