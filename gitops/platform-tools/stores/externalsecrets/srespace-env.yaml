@@ -1,0 +1,26 @@
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
+metadata:
+  name: srespace-env
+  namespace: apps
+spec:
+  refreshInterval: 15m
+  secretStoreRef: { name: vault, kind: ClusterSecretStore }
+  target: { name: srespace-env, creationPolicy: Owner }
+  data:
+    - secretKey: DB_HOST
+      remoteRef: { key: secret/Dev-secret/srespace, property: DB_HOST }
+    - secretKey: DB_PORT
+      remoteRef: { key: secret/Dev-secret/srespace, property: DB_PORT }
+    - secretKey: DB_USER
+      remoteRef: { key: secret/Dev-secret/srespace, property: DB_USER }
+    - secretKey: DB_PASSWORD
+      remoteRef: { key: secret/Dev-secret/srespace, property: DB_PASSWORD }
+    - secretKey: DB_NAME
+      remoteRef: { key: secret/Dev-secret/srespace, property: DB_NAME }
+    - secretKey: APP_ENV
+      remoteRef: { key: secret/Dev-secret/srespace, property: APP_ENV }
+    - secretKey: LOG_LEVEL
+      remoteRef: { key: secret/Dev-secret/srespace, property: LOG_LEVEL }
+    - secretKey: VITE_API_URL
+      remoteRef: { key: secret/Dev-secret/srespace, property: VITE_API_URL }

@@ -1,0 +1,23 @@
+{{- if .Values.ingress.enabled }}
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata: { name: srespace-frontend, namespace: {{ .Values.namespace }} }
+spec:
+  entryPoints: [ websecure ]
+  routes:
+    - match: Host(`{{ index .Values.ingress.hosts 0 }}`)
+      kind: Rule
+      services: [ { name: srespace-frontend, port: 80 } ]
+  tls: {}
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata: { name: srespace-backend, namespace: {{ .Values.namespace }} }
+spec:
+  entryPoints: [ websecure ]
+  routes:
+    - match: Host(`{{ .Values.backend.host }}`) && PathPrefix(`{{ .Values.backend.pathPrefix }}`)
+      kind: Rule
+      services: [ { name: srespace-backend, port: 80 } ]
+  tls: {}
+{{- end }}

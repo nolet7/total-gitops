@@ -1,0 +1,9 @@
+backend:
+  image:
+    tag: "dev-latest"
+frontend:
+  image:
+    tag: "dev-latest"
+ingress:
+  hosts:
+    - srespace.dev.local

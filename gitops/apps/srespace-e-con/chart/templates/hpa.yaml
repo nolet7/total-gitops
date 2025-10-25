@@ -1,0 +1,33 @@
+{{- if .Values.hpa.backend.enabled }}
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata: { name: srespace-backend, namespace: {{ .Values.namespace }} }
+spec:
+  scaleTargetRef: { apiVersion: apps/v1, kind: Deployment, name: srespace-backend }
+  minReplicas: {{ .Values.hpa.backend.minReplicas }}
+  maxReplicas: {{ .Values.hpa.backend.maxReplicas }}
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: {{ .Values.hpa.backend.targetCPUUtilizationPercentage }}
+{{- end }}
+---
+{{- if .Values.hpa.frontend.enabled }}
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata: { name: srespace-frontend, namespace: {{ .Values.namespace }} }
+spec:
+  scaleTargetRef: { apiVersion: apps/v1, kind: Deployment, name: srespace-frontend }
+  minReplicas: {{ .Values.hpa.frontend.minReplicas }}
+  maxReplicas: {{ .Values.hpa.frontend.maxReplicas }}
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: {{ .Values.hpa.frontend.targetCPUUtilizationPercentage }}
+{{- end }}

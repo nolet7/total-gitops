@@ -30,5 +30,5 @@ resources:
   - kyverno-policies/verify-cosign-images.yaml
   - ../stores/clustersecretstore-vault.yaml
   - ../stores/externalsecrets/linkerd-issuer.yaml
-  - ../stores/externalsecrets/projectflow-env.yaml
+  - ../stores/externalsecrets/srespace-env.yaml
 

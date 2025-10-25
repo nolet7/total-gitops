@@ -11,7 +11,7 @@ spec:
     targetRevision: master
   destination:
     server: https://kubernetes.default.svc
-    namespace: platform-tools
+    namespace: argocd
   syncPolicy:
     automated: { selfHeal: true, prune: true }
     syncOptions: [ CreateNamespace=true ]
@@ -19,7 +19,7 @@ spec:
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: projectflow
+  name: srespace-e-con
   namespace: argocd
 spec:
   project: workloads
@@ -28,14 +28,13 @@ spec:
       targetRevision: master
       ref: values
     - repoURL: https://github.com/nolet7/total-gitops.git
-      path: gitops/apps/projectflow/chart
+      path: gitops/apps/srespace-e-con/chart
       targetRevision: master
       helm:
         valueFiles:
-          - $values/gitops/apps/projectflow/values-dev.yaml
+          - $values/gitops/apps/srespace-e-con/values-dev.yaml
   destination:
     server: https://kubernetes.default.svc
     namespace: apps
   syncPolicy:
     automated: { selfHeal: true, prune: true }
-

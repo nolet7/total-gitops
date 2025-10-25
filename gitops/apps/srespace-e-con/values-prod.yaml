@@ -1,0 +1,16 @@
+backend:
+  image:
+    tag: "prod-latest"
+frontend:
+  image:
+    tag: "prod-latest"
+ingress:
+  hosts:
+    - shop.srespace.example.com
+tls:
+  enabled: true
+hpa:
+  backend:
+    enabled: true
+  frontend:
+    enabled: true
