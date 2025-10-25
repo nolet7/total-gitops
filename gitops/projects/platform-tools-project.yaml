@@ -1,10 +1,15 @@
 apiVersion: argoproj.io/v1alpha1
 kind: AppProject
-metadata: { name: platform-tools, namespace: argocd }
+metadata: {name: platform-tools, namespace: argocd}
 spec:
   destinations:
-    - namespace: '*'
-      server: https://kubernetes.default.svc
-  sourceRepos: [ '*' ]
-  clusterResourceWhitelist: [ { group: '*', kind: '*' } ]
-
+    - server: https://kubernetes.default.svc
+      namespace: argocd
+    - server: https://kubernetes.default.svc
+      namespace: platform-tools
+    - server: https://kubernetes.default.svc
+      namespace: apps
+    - server: https://kubernetes.default.svc
+      namespace: linkerd
+  sourceRepos: ['*']
+  clusterResourceWhitelist: [{group: '*', kind: '*'}]
