@@ -1,9 +1,7 @@
 backend:
-  image:
-    tag: "prod-latest"
+  image: docker.io/noletengine/skillflight:latest
 frontend:
-  image:
-    tag: "prod-latest"
+  image: docker.io/noletengine/skillflight:latest
 ingress:
   hosts:
     - shop.srespace.example.com

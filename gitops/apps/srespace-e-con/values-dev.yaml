@@ -1,9 +1,7 @@
 backend:
-  image:
-    tag: "dev-latest"
+  image: docker.io/noletengine/skillflight:latest
 frontend:
-  image:
-    tag: "dev-latest"
+  image: docker.io/noletengine/skillflight:latest
 ingress:
   hosts:
     - srespace.dev.local
