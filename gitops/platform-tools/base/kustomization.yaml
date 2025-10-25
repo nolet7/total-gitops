@@ -1,15 +1,15 @@
 resources:
   # --- DEV controllers we need ---
-  - external-secrets-app-dev.yaml   # ESO + CRDs
-  - traefik-app-dev.yaml            # Ingress
-  - kyverno-app-dev.yaml            # (optional) policies
-  - mysql-app-dev.yaml              # In-cluster MySQL
+  - external-secrets-app-dev.yaml
+  - traefik-app-dev.yaml
+  - kyverno-app-dev.yaml
+  - mysql-app-dev.yaml
 
-  # --- Policies (safe to keep) ---
+  # --- Policies (optional/safe) ---
   - kyverno-policies/require-requests-limits.yaml
   - kyverno-policies/disallow-latest-tag.yaml
   - kyverno-policies/verify-cosign-images.yaml
 
-  # --- ExternalSecret objects that feed MySQL + your app ---
+  # --- ExternalSecrets for the dev app + mysql ---
   - stores/externalsecrets/mysql-auth.yaml
   - stores/externalsecrets/srespace-env.yaml
