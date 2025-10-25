@@ -4,43 +4,39 @@ ingress:
   enabled: true
   className: traefik
   hosts:
-    - srespace.local.example   # change to your domain
+    - srespace.local.example # change to your domain
 tls:
   enabled: true
-
 # Secrets (ESO -> this Secret name)
 envFromSecret: srespace-env
-
 # Backend service
 backend:
   image:
-    repository: ghcr.io/nolet7/srespace-backend   # <-- set your real repo
+    repository: ghcr.io/nolet7/srespace-backend # <-- set your real repo
     tag: "dev-latest"
     pullPolicy: IfNotPresent
   replicas: 1
   service:
     port: 3001
   resources:
-    requests: { cpu: 100m, memory: 256Mi }
-    limits:   { cpu: 300m, memory: 512Mi }
+    requests: {cpu: 100m, memory: 256Mi}
+    limits: {cpu: 300m, memory: 512Mi}
   # for Traefik route
-  host: api.srespace.local.example  # change to your domain if you want dedicated host
-  pathPrefix: /api                  # or use dedicated host and keep '/'
-
+  host: api.srespace.local.example # change to your domain if you want dedicated host
+  pathPrefix: /api # or use dedicated host and keep '/'
 # Frontend service (Vite/React built + Nginx)
 frontend:
   image:
-    repository: ghcr.io/nolet7/srespace-frontend  # <-- set your real repo
+    repository: ghcr.io/nolet7/srespace-frontend # <-- set your real repo
     tag: "dev-latest"
     pullPolicy: IfNotPresent
   replicas: 1
   service:
-    port: 5173               # app port (for Nginx serve, adjust if needed)
+    port: 5173 # app port (for Nginx serve, adjust if needed)
   resources:
-    requests: { cpu: 100m, memory: 128Mi }
-    limits:   { cpu: 300m, memory: 256Mi }
-  host: shop.srespace.local.example   # change to your domain
-
+    requests: {cpu: 100m, memory: 128Mi}
+    limits: {cpu: 300m, memory: 256Mi}
+  host: shop.srespace.local.example # change to your domain
 hpa:
   backend:
     enabled: false
@@ -52,3 +48,10 @@ hpa:
     minReplicas: 2
     maxReplicas: 8
     targetCPUUtilizationPercentage: 70
+backefrontend:
+  image:
+    repository: ghcr.io/nolet7/echo-server
+    tag: v1
+    pullPolicy: IfNotPresent
+ingressRoutes:
+  enabled: false

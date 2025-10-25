@@ -1,3 +1,4 @@
+{{- if .Values.ingressRoutes.enabled -}}
 {{- if .Values.ingress.enabled }}
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
@@ -21,3 +22,5 @@ spec:
       services: [ { name: srespace-backend, port: 80 } ]
   tls: {}
 {{- end }}
+
+{{- end -}}
