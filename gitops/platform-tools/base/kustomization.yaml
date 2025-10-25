@@ -1,37 +1,15 @@
 resources:
-  - mysql-app-dev.yaml
-  - mysql-app-prod.yaml
-  - argocd-app-dev.yaml
-  - argocd-app-prod.yaml
-  - external-secrets-app-dev.yaml
-  - external-secrets-app-prod.yaml
-  - traefik-app-dev.yaml
-  - traefik-app-prod.yaml
-  - linkerd-crds-app-dev.yaml
-  - linkerd-crds-app-prod.yaml
-  - linkerd-app-dev.yaml
-  - linkerd-app-prod.yaml
-  - kyverno-app-dev.yaml
-  - kyverno-app-prod.yaml
-  - metrics-server-app-dev.yaml
-  - metrics-server-app-prod.yaml
-  - kube-prometheus-stack-app-dev.yaml
-  - kube-prometheus-stack-app-prod.yaml
-  - loki-stack-app-dev.yaml
-  - loki-stack-app-prod.yaml
-  - kubecost-app-dev.yaml
-  - kubecost-app-prod.yaml
-  - goldilocks-app-dev.yaml
-  - goldilocks-app-prod.yaml
-  - redis-cluster-app-dev.yaml
-  - redis-cluster-app-prod.yaml
-  - reloader-app-dev.yaml
-  - reloader-app-prod.yaml
+  # --- DEV controllers we need ---
+  - external-secrets-app-dev.yaml   # ESO + CRDs
+  - traefik-app-dev.yaml            # Ingress
+  - kyverno-app-dev.yaml            # (optional) policies
+  - mysql-app-dev.yaml              # In-cluster MySQL
+
+  # --- Policies (safe to keep) ---
   - kyverno-policies/require-requests-limits.yaml
   - kyverno-policies/disallow-latest-tag.yaml
   - kyverno-policies/verify-cosign-images.yaml
-  - stores/clustersecretstore-vault.yaml
-  - stores/externalsecrets/linkerd-issuer.yaml
+
+  # --- ExternalSecret objects that feed MySQL + your app ---
   - stores/externalsecrets/mysql-auth.yaml
   - stores/externalsecrets/srespace-env.yaml
-
