@@ -15,6 +15,9 @@ spec:
   syncPolicy:
     automated: { selfHeal: true, prune: true }
     syncOptions: [ CreateNamespace=true ]
+    syncOptions:
+      - CreateNamespace=true
+      - SkipDryRunOnMissingResource=true
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: Application

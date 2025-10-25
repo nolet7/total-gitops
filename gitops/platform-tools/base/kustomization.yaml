@@ -30,8 +30,8 @@ resources:
   - kyverno-policies/require-requests-limits.yaml
   - kyverno-policies/disallow-latest-tag.yaml
   - kyverno-policies/verify-cosign-images.yaml
-  - ../stores/clustersecretstore-vault.yaml
-  - ../stores/externalsecrets/linkerd-issuer.yaml
-  - ../stores/externalsecrets/mysql-auth.yaml
-  - ../stores/externalsecrets/srespace-env.yaml
+  - stores/clustersecretstore-vault.yaml
+  - stores/externalsecrets/linkerd-issuer.yaml
+  - stores/externalsecrets/mysql-auth.yaml
+  - stores/externalsecrets/srespace-env.yaml
 
