@@ -1,0 +1,4 @@
+image: { tag: "dev-<shortsha>" }
+ingress: { hosts: [ projectflow.dev.example.com ] }
+hpa: { enabled: false }
+

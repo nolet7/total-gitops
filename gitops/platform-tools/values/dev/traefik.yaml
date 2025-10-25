@@ -1,0 +1,4 @@
+logs: { general: { level: DEBUG } }
+ports: { websecure: { tls: { enabled: true } } }
+ingressRoute: { dashboard: { enabled: true } }
+

@@ -1,0 +1,11 @@
+image: { tag: "prod-<shortsha>" }
+ingress: { hosts: [ projectflow.example.com ] }
+hpa:
+  enabled: true
+  minReplicas: 2
+  maxReplicas: 8
+  targetCPUUtilizationPercentage: 70
+resources:
+  requests: { cpu: 300m, memory: 512Mi }
+  limits:   { cpu: 1, memory: 1Gi }
+

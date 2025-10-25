@@ -1,0 +1,16 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata: { name: reloader-prod, namespace: argocd }
+spec:
+  project: platform-tools
+  sources:
+    - repoURL: https://stakater.github.io/stakater-charts
+      chart: reloader
+      targetRevision: v1.0.116
+      helm: { valueFiles: [ $values/gitops/platform-tools/values/prod/reloader.yaml ] }
+    - repoURL: https://github.com/nolet7/total-gitops.git
+      targetRevision: master
+      ref: values
+  destination: { server: https://kubernetes.default.svc, namespace: platform-tools }
+  syncPolicy: { automated: { selfHeal: true, prune: true } }
+

@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: { name: projectflow }
+spec:
+  replicas: 1
+  selector: { matchLabels: { app: projectflow } }
+  template:
+    metadata:
+      labels: { app: projectflow }
+      annotations: { linkerd.io/inject: enabled }
+    spec:
+      containers:
+        - name: app
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: "{{ .Values.image.pullPolicy }}"
+          envFrom: [ { secretRef: { name: {{ .Values.envFromSecret | quote }} } } ]
+          ports: [ { containerPort: 8080, name: http } ]
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+

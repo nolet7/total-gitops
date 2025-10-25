@@ -1,0 +1,16 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata: { name: loki-stack-dev, namespace: argocd }
+spec:
+  project: platform-tools
+  sources:
+    - repoURL: https://grafana.github.io/helm-charts
+      chart: loki-stack
+      targetRevision: 2.10.2
+      helm: { valueFiles: [ $values/gitops/platform-tools/values/dev/loki-stack.yaml ] }
+    - repoURL: https://github.com/nolet7/total-gitops.git
+      targetRevision: master
+      ref: values
+  destination: { server: https://kubernetes.default.svc, namespace: platform-tools }
+  syncPolicy: { automated: { selfHeal: true, prune: true } }
+

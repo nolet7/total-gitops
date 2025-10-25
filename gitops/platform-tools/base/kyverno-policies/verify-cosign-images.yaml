@@ -1,0 +1,13 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata: { name: verify-cosign-images }
+spec:
+  validationFailureAction: Audit
+  background: true
+  rules:
+    - name: verify-cosign
+      match: { resources: { kinds: [Pod,Deployment,StatefulSet,DaemonSet,Job,CronJob] } }
+      verifyImages:
+        - image: "*"
+          keyless: true
+

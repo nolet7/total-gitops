@@ -1,0 +1,41 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: platform-apps
+  namespace: argocd
+spec:
+  project: platform-tools
+  source:
+    repoURL: https://github.com/nolet7/total-gitops.git
+    path: gitops/platform-tools/base
+    targetRevision: master
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: platform-tools
+  syncPolicy:
+    automated: { selfHeal: true, prune: true }
+    syncOptions: [ CreateNamespace=true ]
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: projectflow
+  namespace: argocd
+spec:
+  project: workloads
+  sources:
+    - repoURL: https://github.com/nolet7/total-gitops.git
+      targetRevision: master
+      ref: values
+    - repoURL: https://github.com/nolet7/total-gitops.git
+      path: gitops/apps/projectflow/chart
+      targetRevision: master
+      helm:
+        valueFiles:
+          - $values/gitops/apps/projectflow/values-dev.yaml
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: apps
+  syncPolicy:
+    automated: { selfHeal: true, prune: true }
+

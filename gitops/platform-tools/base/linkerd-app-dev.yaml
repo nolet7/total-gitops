@@ -1,0 +1,16 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata: { name: linkerd-dev, namespace: argocd }
+spec:
+  project: platform-tools
+  sources:
+    - repoURL: https://helm.linkerd.io/stable
+      chart: linkerd-control-plane
+      targetRevision: 1.16.11
+      helm: { valueFiles: [ $values/gitops/platform-tools/values/dev/linkerd.yaml ] }
+    - repoURL: https://github.com/nolet7/total-gitops.git
+      targetRevision: master
+      ref: values
+  destination: { server: https://kubernetes.default.svc, namespace: platform-tools }
+  syncPolicy: { automated: { selfHeal: true, prune: true } }
+
