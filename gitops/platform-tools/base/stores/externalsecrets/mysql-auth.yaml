@@ -4,14 +4,23 @@ metadata:
   name: mysql-auth
   namespace: apps
 spec:
-  refreshInterval: 15m
-  secretStoreRef: { name: vault, kind: ClusterSecretStore }
+  refreshInterval: 1m
+  secretStoreRef:
+    kind: ClusterSecretStore
+    name: vault
   target:
     name: mysql-auth
     creationPolicy: Owner
+    template:
+      type: Opaque
   data:
-    # Bitnami MySQL expects these keys in the secret if using auth.existingSecret
-    - secretKey: mysql-root-password
-      remoteRef: { key: secret/Dev-secret/srespace-db, property: MYSQL_ROOT_PASSWORD }
-    - secretKey: mysql-password
-      remoteRef: { key: secret/Dev-secret/srespace-db, property: MYSQL_PASSWORD }
+    - secretKey: username
+      remoteRef: { key: secret/Dev-secret/srespace, property: DB_USER }
+    - secretKey: password
+      remoteRef: { key: secret/Dev-secret/srespace, property: DB_PASSWORD }
+    - secretKey: host
+      remoteRef: { key: secret/Dev-secret/srespace, property: DB_HOST }
+    - secretKey: port
+      remoteRef: { key: secret/Dev-secret/srespace, property: DB_PORT }
+    - secretKey: database
+      remoteRef: { key: secret/Dev-secret/srespace, property: DB_NAME }

@@ -4,10 +4,18 @@ metadata:
   name: srespace-env
   namespace: apps
 spec:
-  refreshInterval: 15m
-  secretStoreRef: { name: vault, kind: ClusterSecretStore }
-  target: { name: srespace-env, creationPolicy: Owner }
+  refreshInterval: 1m
+  secretStoreRef:
+    kind: ClusterSecretStore
+    name: vault
+  target:
+    name: srespace-env
+    creationPolicy: Owner
+    template:
+      type: Opaque
   data:
+    - secretKey: APP_ENV
+      remoteRef: { key: secret/Dev-secret/srespace, property: APP_ENV }
     - secretKey: DB_HOST
       remoteRef: { key: secret/Dev-secret/srespace, property: DB_HOST }
     - secretKey: DB_PORT
@@ -18,8 +26,6 @@ spec:
       remoteRef: { key: secret/Dev-secret/srespace, property: DB_PASSWORD }
     - secretKey: DB_NAME
       remoteRef: { key: secret/Dev-secret/srespace, property: DB_NAME }
-    - secretKey: APP_ENV
-      remoteRef: { key: secret/Dev-secret/srespace, property: APP_ENV }
     - secretKey: LOG_LEVEL
       remoteRef: { key: secret/Dev-secret/srespace, property: LOG_LEVEL }
     - secretKey: VITE_API_URL
